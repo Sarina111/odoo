@@ -494,3 +494,12 @@ class IrHttp(models.AbstractModel):
             return request.redirect(content, code=301, local=False)
         elif status != 200:
             return request.not_found()
+    @api.model
+    def get_frontend_session_info(self):
+        return {
+                 "is_admin": self.env.user._is_admin(),
+                 "is_system": self.env.user._is_system(),
+                 "is_website_user": self.env.user._is_public(),
+                 "user_id": self.env.user.id,
+                "is_frontend": True,
+                }
